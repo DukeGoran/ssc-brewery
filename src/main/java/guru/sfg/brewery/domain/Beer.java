@@ -19,7 +19,7 @@ package guru.sfg.brewery.domain;
 import guru.sfg.brewery.web.model.BeerStyleEnum;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+// import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -40,37 +40,40 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
+// @NoArgsConstructor
 public class Beer extends BaseEntity {
 
-    @Builder
-    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
-                BeerStyleEnum beerStyle, String upc, Integer minOnHand,
-                Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.beerName = beerName;
-        this.beerStyle = beerStyle;
-        this.upc = upc;
-        this.minOnHand = minOnHand;
-        this.quantityToBrew = quantityToBrew;
-        this.price = price;
-        this.beerInventory = beerInventory;
-    }
+	public Beer() {
+	}
 
-    private String beerName;
-    private BeerStyleEnum beerStyle;
+	@Builder
+	public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
+			BeerStyleEnum beerStyle, String upc, Integer minOnHand, Integer quantityToBrew, BigDecimal price,
+			Set<BeerInventory> beerInventory) {
+		super(id, version, createdDate, lastModifiedDate);
+		this.beerName = beerName;
+		this.beerStyle = beerStyle;
+		this.upc = upc;
+		this.minOnHand = minOnHand;
+		this.quantityToBrew = quantityToBrew;
+		this.price = price;
+		this.beerInventory = beerInventory;
+	}
 
-    @Column(unique = true)
-    private String upc;
+	private String beerName;
+	private BeerStyleEnum beerStyle;
 
-    /**
-     * Min on hand qty - used to trigger brew
-     */
-    private Integer minOnHand;
-    private Integer quantityToBrew;
-    private BigDecimal price;
+	@Column(unique = true)
+	private String upc;
 
-    @OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    private Set<BeerInventory> beerInventory = new HashSet<>();
+	/**
+	 * Min on hand qty - used to trigger brew
+	 */
+	private Integer minOnHand;
+	private Integer quantityToBrew;
+	private BigDecimal price;
+
+	@OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)
+	@Fetch(FetchMode.JOIN)
+	private Set<BeerInventory> beerInventory = new HashSet<>();
 }

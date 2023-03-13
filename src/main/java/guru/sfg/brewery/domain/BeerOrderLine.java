@@ -18,7 +18,7 @@ package guru.sfg.brewery.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+// import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -31,27 +31,29 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@NoArgsConstructor
+// @NoArgsConstructor
 @Entity
 public class BeerOrderLine extends BaseEntity {
 
-    @Builder
-    public BeerOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
-                         BeerOrder beerOrder, Beer beer, Integer orderQuantity,
-                         Integer quantityAllocated) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.beerOrder = beerOrder;
-        this.beer = beer;
-        this.orderQuantity = orderQuantity;
-        this.quantityAllocated = quantityAllocated;
-    }
+	public BeerOrderLine() {
+	}
 
-    @ManyToOne
-    private BeerOrder beerOrder;
+	@Builder
+	public BeerOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, BeerOrder beerOrder,
+			Beer beer, Integer orderQuantity, Integer quantityAllocated) {
+		super(id, version, createdDate, lastModifiedDate);
+		this.beerOrder = beerOrder;
+		this.beer = beer;
+		this.orderQuantity = orderQuantity;
+		this.quantityAllocated = quantityAllocated;
+	}
 
-    @ManyToOne
-    private Beer beer;
+	@ManyToOne
+	private BeerOrder beerOrder;
 
-    private Integer orderQuantity = 0;
-    private Integer quantityAllocated = 0;
+	@ManyToOne
+	private Beer beer;
+
+	private Integer orderQuantity = 0;
+	private Integer quantityAllocated = 0;
 }
